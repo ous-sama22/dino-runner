@@ -32,20 +32,26 @@ card's screen is showing.
 
 ## Build and install
 
-JDK 17 and Android SDK 34 (platform 34, build-tools 34.0.0). From this folder, with the TV's network
-debugging on:
+Download `dino-runner-<version>.apk` from the [latest release](https://github.com/ous-sama22/dino-runner/releases/latest),
+check it against the SHA-256 in the release notes, then install it with the TV's network debugging on:
+
+```bash
+adb connect <tv ip>:<port>
+adb install -r dino-runner-1.0.apk
+```
+
+Or build it yourself, with JDK 17 and Android SDK 34 (platform 34, build-tools 34.0.0):
 
 ```bash
 ./gradlew assembleRelease
-adb connect <tv ip>:<port>
 adb install -r app/build/outputs/apk/release/app-release.apk
 ```
 
-On Windows run `gradlew.bat assembleRelease`. No JDK or SDK at hand? Every push builds the APK on GitHub
-Actions (the **Build** workflow); download it from the run's artifacts.
+On Windows run `gradlew.bat assembleRelease`.
 
-The release build is signed with the debug key, so it installs over ADB. A build from another computer
-has another key: uninstall the old one first (`adb uninstall io.github.oussama22.dinorunner`).
+The APK is signed with a debug key, so it installs over ADB. A build signed with another key (your own
+build, or one from another release) does not install over it: uninstall the old one first
+(`adb uninstall io.github.oussama22.dinorunner`).
 
 ## Use it as the screensaver
 
